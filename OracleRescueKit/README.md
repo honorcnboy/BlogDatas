@@ -8,7 +8,7 @@
 
 - 密码：CNBoy.org
 
-- 档案：https://github.com/Glory-CNBoy/BlogDatas/releases/download/OracleRescueKit/ubuntu18.04.amd.img.gz
+https://github.com/Glory-CNBoy/BlogDatas/releases/download/OracleRescueKit/ubuntu18.04.amd.img.gz
       
 ### ubuntu 18.04 ARM
 
@@ -18,7 +18,7 @@
 
 - 密码：CNBoy.org
 
-- 档案：https://github.com/Glory-CNBoy/BlogDatas/releases/download/OracleRescueKit/ubuntu18.04.arm.img.gz
+https://github.com/Glory-CNBoy/BlogDatas/releases/download/OracleRescueKit/ubuntu18.04.arm.img.gz
 
 ### dabian 10 ARM
 
@@ -28,4 +28,4 @@
 
 - 密码：10086.fit
 
-- 档案：https://github.com/Glory-CNBoy/BlogDatas/releases/download/OracleRescueKit/dabian10.arm.img.gz
+https://github.com/Glory-CNBoy/BlogDatas/releases/download/OracleRescueKit/dabian10.arm.img.gz
