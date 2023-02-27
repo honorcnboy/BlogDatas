@@ -1,13 +1,4 @@
 ## Oracle Rescue Kit
-### ubuntu 18.04 ARM
-
-官方原版 Canonical-Ubuntu-18.04-aarch64-2022.10.27-0 + BBRPlus-6.1.11
-
-用户名：root
-
-密码：CNBoy.org
-
-https://github.com/Glory-CNBoy/BlogDatas/releases/download/OracleRescueKit/ubuntu18.04.arm.img.gz
       
 ### ubuntu 18.04 AMD
 
@@ -19,6 +10,16 @@ https://github.com/Glory-CNBoy/BlogDatas/releases/download/OracleRescueKit/ubunt
 
 https://github.com/Glory-CNBoy/BlogDatas/releases/download/OracleRescueKit/ubuntu18.04.amd.img.gz
       
+### ubuntu 18.04 ARM
+
+官方原版 Canonical-Ubuntu-18.04-aarch64-2022.10.27-0 + BBRPlus-6.1.11
+
+用户名：root
+
+密码：CNBoy.org
+
+https://github.com/Glory-CNBoy/BlogDatas/releases/download/OracleRescueKit/ubuntu18.04.arm.img.gz
+
 ### dabian 10 ARM
 
 网络精简版
