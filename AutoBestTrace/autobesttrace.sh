@@ -21,7 +21,7 @@ if [ ! -f "besttrace2023" ]; then
     mv besttrace /root/besttrace2023
     elif [[ $(uname -m) == "i386" ]]; then
     mv besttrace32 /root/besttrace2023
-    elif [ $(uname) = "aarch64" ]; then
+    elif [[ $(uname -m) == "aarch64" ]]; then
     mv besttracearm /root/besttrace2023
     fi
     cd /root/
