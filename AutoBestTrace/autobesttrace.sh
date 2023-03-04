@@ -47,9 +47,9 @@ log_file="/root/besttrace${now}.log"
 
 for i in {0..14}
 do
-	echo ${ip_addr[$i]}
-	./besttrace2023 -q 1 -g cn ${ip_list[$i]}
-	next
+    echo ${ip_addr[$i]}
+    ./besttrace2023 -q 1 -g cn ${ip_list[$i]}
+    next
 done > >(tee -a $log_file)
 
 echo "运行结果已保存至 $log_file，请自行查看."
