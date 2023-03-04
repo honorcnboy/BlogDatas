@@ -52,12 +52,7 @@ do
     next
 done > >(tee -a $log_file)
 
-read -p "是否保存运行结果 (Y/N): " choice
-if [ "$choice" = "Y" ] || [ "$choice" = "y" ]; then
-    echo "运行结果已保存至 ${log_file}，请自行查看。"
-else [ "$choice" = "N" ] || [ "$choice" = "n" ]; then
-    rm "$log_file"
-fi
+echo "运行结果已保存至 ${log_file}，请自行查看。"
 
 ## Delete Besttrace2023 Files
 
