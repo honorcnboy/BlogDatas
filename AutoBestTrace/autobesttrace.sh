@@ -45,7 +45,7 @@ ip_addr=(北京电信 北京移动 北京联通 上海电信 上海移动 上海
 now=$(date +"%Y%m%d%H%M")
 log_file="/root/besttrace${now}.log"
 
-for i in {0..14}
+for i in {0..1}
 do
     echo ${ip_addr[$i]}
     ./besttrace2023 -q 1 -g cn ${ip_list[$i]}
