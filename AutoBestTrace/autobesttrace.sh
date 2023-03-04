@@ -42,12 +42,17 @@ ip_list=(219.141.244.2 211.136.17.107 202.106.50.1  202.96.209.5 211.136.150.66 
 ip_addr=(北京电信 北京移动 北京联通 上海电信 上海移动 上海联通 广州电信 广州移动 广州联通 重庆电信 重庆移动 重庆联通 西安电信 西安移动 西安联通)
 # ip_len=${#ip_list[@]}
 
+now=$(date +"%Y%m%d%H%M")
+log_file="/root/besttrace${now}.log"
+
 for i in {0..14}
 do
 	echo ${ip_addr[$i]}
 	./besttrace2023 -q 1 -g cn ${ip_list[$i]}
 	next
-done
+done > >(tee -a $logfile)
+
+echo "运行结果已保存至 $log_file，请自行查看."
 
 ## Delete Besttrace2023 Files
 
