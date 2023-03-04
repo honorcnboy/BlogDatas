@@ -15,7 +15,7 @@ fi
 if [ ! -f "besttrace2023" ]; then
     mkdir /root/besttrace
     cd /root/besttrace
-    wget https://github.com/honorcnboy/BestTrace/releases/download/besttrace4linux/besttrace4linux.zip
+    wget https://github.com/honorcnboy/BlogDatas/releases/download/AutoBestTrace/besttrace4linux.zip
     unzip besttrace*.zip
     if [[ $(uname -m) == "x86_64" ]]; then
     mv besttrace /root/besttrace2023
