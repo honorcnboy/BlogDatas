@@ -52,7 +52,12 @@ do
     next
 done > >(tee -a $log_file)
 
-echo "运行结果已保存至 ${log_file}，请自行查看。"
+read -p "是否保存运行结果（Y/N）：" confirm
+if [[ "$confirm" =~ ^[Yy]$ ]]; then
+    echo "运行结果已保存至 ${log_file}，请自行查看。"
+else
+    rm -f ${log_file}
+fi
 
 ## Delete Besttrace2023 Files
 
