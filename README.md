@@ -2,6 +2,6 @@
 
 CNBoy 四海部落：https://cnboy.org 
 
-<a href="http://write.blog.csdn.net/postlist" target="_blank">跳到自己博客列表</a>
+CNBoy 四海部落：[https://cnboy.org](https://cnboy.org){target="_blank"}
 
-跳到自己博客列表：<a href="http://write.blog.csdn.net/postlist" target="_blank">http://write.blog.csdn.net/postlist</a>
+
