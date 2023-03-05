@@ -86,7 +86,7 @@ do
     next
 done > >(tee -a $log_file)
 
-echo "运行结果已保存至 ${log_file}，请自行查看。"
+echo "检测结果已保存至 ${log_file}，请自行查看。"
 
 ## Delete Besttrace2023 Files
 
