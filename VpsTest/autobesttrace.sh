@@ -58,13 +58,13 @@ clear
 now=$(date +"%y%m%d%H%M")
 log_file="/root/besttrace${now}.txt"
 header="
-#======================================
+#==========================================
 # Project: AutoBesttrace
 # Version: 1.0
 # Author: CNBoy
 # Blog:   https://cnboy.org
 # Github: https://github.com/honorcnboy
-#======================================
+#==========================================
 "
 
 # Add the following line to output the header in green color
