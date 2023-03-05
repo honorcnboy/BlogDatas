@@ -1,4 +1,4 @@
-###### AutoBesttrace
+##### AutoBesttrace
 
 适用于 AMD / ARM 架构 ubuntu / debian / centos 系统的三网回程路由检测脚本
 
@@ -9,7 +9,7 @@
 wget -qO- https://raw.githubusercontent.com/honorcnboy/BlogDatas/main/VpsTest/autobesttrace.sh | bash 
 ```
 
-###### Routetest
+##### Routetest
 
 适用于 AMD / ARM 架构 ubuntu / debian / centos 系统的三网回程线路检测脚本
 
