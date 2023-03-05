@@ -7,6 +7,7 @@ echo -e "${Green_font}
 # Blog:   https://cnboy.org
 # Github: https://github.com/honorcnboy
 #======================================
+${Font_suffix}"
 
 # install unzip
 
