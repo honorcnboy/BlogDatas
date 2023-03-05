@@ -43,7 +43,7 @@ ip_addr=(北京电信 北京移动 北京联通 上海电信 上海移动 上海
 # ip_len=${#ip_list[@]}
 
 now=$(date +"%y%m%d%H%M")
-log_file="/root/besttrace${now}.log"
+log_file="/root/besttrace${now}.txt"
 
 for i in {0..14}
 do
