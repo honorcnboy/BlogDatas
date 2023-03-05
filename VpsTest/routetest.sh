@@ -50,6 +50,7 @@ header="
 "
 
 echo "$header" | tee $log_file
+echo -e "\n正在测试,请稍等..."
 
 next
 
@@ -57,7 +58,7 @@ ip_list=(219.141.244.2 221.130.33.60 202.106.50.1 202.96.209.5 211.136.150.66 21
 ip_addr=(北京电信 北京移动 北京联通 上海电信 上海移动 上海联通 广州电信 广州移动 广州联通 重庆电信 重庆移动 重庆联通 西安电信 西安移动 西安联通)
 
 for i in {0..14}; do
-	mtr -r --n --tcp ${iplise[i]} > /tmp/routetest.log
+	mtr -r --n --tcp ${ip_list[$i]} > /tmp/routetest.log
 	grep -q "59\.43\." /tmp/routetest.log
 	if [ $? == 0 ];then
 		grep -q "202\.97\."  /tmp/routetest.log
