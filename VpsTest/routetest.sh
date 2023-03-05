@@ -28,14 +28,9 @@ else
     echo "mtr already installed"
 fi
 
+clear
 
 ## start test route
-
-next() {
-    printf "%-70s\n" "-" | sed 's/\s/-/g'
-}
-
-clear
 
 now=$(date +"%y%m%d%H%M")
 log_file="/root/routetest${now}.txt"
@@ -48,10 +43,10 @@ header="
 # Github: https://github.com/honorcnboy
 #==========================================
 "
-
+time {
 echo "$header" | tee $log_file
-echo -e "\n测试时常约3分钟, 请稍等..." | tee -a $log_file
-
+echo -e "\n正在进行测试, 请稍等..." | tee -a $log_file
+echo -e "-------------------------------------------------------\n" | tee -a $log_file
 next
 
 ip_list=(219.141.244.2 221.130.33.60 202.106.50.1 202.96.209.5 211.136.150.66 211.95.52.116 202.96.128.86 211.136.192.6 210.21.4.130 61.128.192.68 218.201.4.3 221.5.203.98 61.134.1.5 111.19.239.36 113.200.112.30)
@@ -108,9 +103,9 @@ for i in {0..14}; do
 echo 
 done > >(tee -a $log_file)
 
-next
-
-echo -e "本脚本测试结果为TCP回程路由, 仅供参考.\n" | tee -a $log_file
+echo "脚本运行时间：$(date +%s)秒"
+}
+echo -e "-------------------------------------------------------\n本脚本测试结果为TCP回程路由, 仅供参考.\n" | tee -a $log_file
 echo "检测结果已保存至 ${log_file}，请自行查看"
 
 rm -f /tmp/routetest.log
