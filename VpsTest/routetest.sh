@@ -50,7 +50,7 @@ header="
 "
 
 echo "$header" | tee $log_file
-echo -e "\n正在测试,请稍等..."
+echo -e "\n测试时常约3分钟, 请稍等..." | tee -a $log_file
 
 next
 
@@ -110,7 +110,7 @@ done > >(tee -a $log_file)
 
 next
 
-echo -e "本脚本测试结果为TCP回程路由, 仅供参考.\n" | tee $log_file
+echo -e "本脚本测试结果为TCP回程路由, 仅供参考.\n" | tee -a $log_file
 echo "检测结果已保存至 ${log_file}，请自行查看"
 
 rm -f /root/traceroute_testlog
