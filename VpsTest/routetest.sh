@@ -108,7 +108,9 @@ for i in {0..14}; do
 echo 
 done > >(tee -a $log_file)
 
-echo -e "\n——————————————————————————————\n本脚本测试结果为TCP回程路由, 仅供参考.\n" | tee $log_file
+next
+
+echo -e "本脚本测试结果为TCP回程路由, 仅供参考.\n" | tee $log_file
 echo "检测结果已保存至 ${log_file}，请自行查看"
 
 rm -f /root/traceroute_testlog
