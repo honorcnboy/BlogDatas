@@ -1,4 +1,12 @@
 #!/bin/bash
+echo -e "${Green_font}
+#======================================
+# Project: AutoBesttrace
+# Version: 1.0
+# Author: CNBoy
+# Blog:   https://cnboy.org
+# Github: https://github.com/honorcnboy
+#======================================
 
 # install unzip
 
