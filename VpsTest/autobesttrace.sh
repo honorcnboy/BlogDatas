@@ -1,5 +1,17 @@
 #!/bin/bash
 
+echo -e "\033[32m"
+cat << "EOF"
+#======================================
+# Project: testrace
+# Version: 1.2
+# Author: nanqinlang
+# Blog:   https://sometimesnaive.org
+# Github: https://github.com/nanqinlang
+#======================================
+EOF
+echo -e "\033[0m"
+
 # install unzip
 
 if ! command -v unzip &> /dev/null
