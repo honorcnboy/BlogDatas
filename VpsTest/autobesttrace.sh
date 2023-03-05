@@ -1,11 +1,29 @@
 #!/bin/bash
 
-# install unzip
+# Detect system type
+
+if [[ $(uname -s) == "Linux" ]]; then
+    if [[ -f /etc/debian_version ]]; then
+        # Debian/Ubuntu-based system
+        INSTALL_CMD="apt -y install"
+    elif [[ -f /etc/redhat-release ]]; then
+        # CentOS-based system
+        INSTALL_CMD="yum -y install"
+    else
+        echo "Unsupported Linux distribution" >&2
+        exit 1
+    fi
+else
+    echo "This script only supports Linux systems" >&2
+    exit 1
+fi
+
+# Install unzip
 
 if ! command -v unzip &> /dev/null
 then
     echo "unzip not found, installing..."
-    sudo apt -y install unzip
+    sudo $INSTALL_CMD unzip
 else
     echo "unzip already installed"
 fi
@@ -37,9 +55,9 @@ next() {
 
 clear
 
-# Add the following line to output the header in green color
-
-echo -e "
+now=$(date +"%y%m%d%H%M")
+log_file="/root/besttrace${now}.txt"
+header="
 #======================================
 # Project: AutoBesttrace
 # Version: 1.0
@@ -49,15 +67,17 @@ echo -e "
 #======================================
 "
 
+# Add the following line to output the header in green color
+
+echo -e "$header"
+echo "$header" > $log_file
+
 next
 
 ip_list=(219.141.244.2 211.136.17.107 202.106.50.1  202.96.209.5 211.136.150.66 211.95.52.116 202.96.128.86 211.136.192.6 210.21.4.130 61.128.192.68 218.201.4.3 221.5.203.98 61.134.1.5 111.19.239.36 113.200.112.30)
 ip_addr=(北京电信 北京移动 北京联通 上海电信 上海移动 上海联通 广州电信 广州移动 广州联通 重庆电信 重庆移动 重庆联通 西安电信 西安移动 西安联通)
 
 # ip_len=${#ip_list[@]}
-
-now=$(date +"%y%m%d%H%M")
-log_file="/root/besttrace${now}.txt"
 
 for i in {0..14}
 do
