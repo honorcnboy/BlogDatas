@@ -39,7 +39,7 @@ log_file="/root/routetest${now}.txt"
 header="
 #==========================================
 # Project: Routetest
-# Version: 1.0
+# Updated: 2023.03.06
 # Author: CNBoy
 # Blog:   https://cnboy.org
 # Github: https://github.com/honorcnboy
