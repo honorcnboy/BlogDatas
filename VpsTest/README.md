@@ -1,4 +1,4 @@
-#### 运行命令
+#### 运行命令 [适用于：ubuntu / debian / centos]
 ```bash
 wget -qO- https://raw.githubusercontent.com/honorcnboy/BlogDatas/main/VpsTest/autobesttrace.sh | bash 
 ```
