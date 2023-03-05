@@ -1,5 +1,7 @@
 #!/bin/bash
 
+start_time=$(date +%s)
+
 # Detect system type
 
 if [[ $(uname -s) == "Linux" ]]; then
@@ -100,8 +102,12 @@ for i in {0..14}; do
 echo 
 done > >(tee -a $log_file)
 
-echo -e "脚本运行时间：$(date +%s)秒" | tee -a $log_file
-}
+end_time=$(date +%s)
+
+total_time=$((end_time - start_time))
+
+echo -e "脚本运行时间：${total_time}秒" | tee -a $log_file
+
 echo -e "-------------------------------------------------------\n本脚本测试结果为TCP回程路由, 仅供参考.\n" | tee -a $log_file
 echo "检测结果已保存至 ${log_file}，请自行查看"
 
