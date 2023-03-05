@@ -48,17 +48,6 @@ log_file="/root/besttrace${now}.txt"
 
 for i in {0..14}
 do
-
-echo "
-#======================================
-# Project: AutoBesttrace
-# Version: 1.0
-# Author: CNBoy
-# Blog:   https://cnboy.org
-# Github: https://github.com/honorcnboy
-#======================================
-"
-
     echo ${ip_addr[$i]}
     ./besttrace2023 -q 1 -g cn ${ip_list[$i]}
     next
