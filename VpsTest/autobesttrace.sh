@@ -69,7 +69,7 @@ header="
 
 # Add the following line to output the header in green color
 
-echo "$header" > $log_file
+echo "$header" | tee "$log_file"
 
 next
 
