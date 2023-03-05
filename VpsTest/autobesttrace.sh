@@ -48,6 +48,11 @@ next() {
 }
 
 clear
+
+# Add the following line to output the header in green color
+
+echo -e "\033[32m#======================================\n# Project: testrace\n# Version: 1.2\n# Author: nanqinlang\n# Blog:   https://sometimesnaive.org\n# Github: https://github.com/nanqinlang\n#======================================\033[0m"
+
 next
 
 ip_list=(219.141.244.2 211.136.17.107 202.106.50.1  202.96.209.5 211.136.150.66 211.95.52.116 202.96.128.86 211.136.192.6 210.21.4.130 61.128.192.68 218.201.4.3 221.5.203.98 61.134.1.5 111.19.239.36 113.200.112.30)
