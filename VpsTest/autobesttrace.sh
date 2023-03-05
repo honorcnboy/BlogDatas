@@ -47,6 +47,7 @@ now=$(date +"%y%m%d%H%M")
 log_file="/root/besttrace${now}.txt"
 
 for i in {0..14}
+do
 
 echo "
 #======================================
@@ -58,7 +59,6 @@ echo "
 #======================================
 "
 
-do
     echo ${ip_addr[$i]}
     ./besttrace2023 -q 1 -g cn ${ip_list[$i]}
     next
