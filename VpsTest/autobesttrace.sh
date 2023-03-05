@@ -1,5 +1,7 @@
 #!/bin/bash
 
+start_time=$(date +%s)
+
 # Detect system type
 
 if [[ $(uname -s) == "Linux" ]]; then
@@ -85,7 +87,14 @@ do
     next
 done > >(tee -a $log_file)
 
-echo "检测结果已保存至 ${log_file}，请自行查看"
+end_time=$(date +%s)
+total_time=$((end_time - start_time))
+minutes=$((total_time / 60))
+seconds=$((total_time % 60))
+
+printf "脚本运行时间：%d分钟%d秒\n" "$minutes" "$seconds" | tee -a $log_file
+
+echo -e "\n检测结果已保存至 ${log_file}，请自行查看"
 
 ## Delete Besttrace2023 Files
 
