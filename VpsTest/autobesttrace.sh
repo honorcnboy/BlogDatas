@@ -13,8 +13,8 @@ fi
 # install besttrace
 
 if [ ! -f "besttrace2023" ]; then
-    mkdir /root/besttrace
-    cd /root/besttrace
+    mkdir /tmp/besttrace
+    cd /tmp/besttrace
     wget https://github.com/honorcnboy/BlogDatas/releases/download/AutoBestTrace/besttrace4linux.zip
     unzip besttrace*.zip
     if [[ $(uname -m) == "x86_64" ]]; then
@@ -25,7 +25,7 @@ if [ ! -f "besttrace2023" ]; then
     mv besttracearm /root/besttrace2023
     fi
     cd /root/
-    rm -rf /root/besttrace
+    rm -rf /tmp/besttrace
     chmod +x besttrace2023
 fi
 
