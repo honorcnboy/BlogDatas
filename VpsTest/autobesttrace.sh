@@ -45,7 +45,7 @@ ip_addr=(北京电信 北京移动 北京联通 上海电信 上海移动 上海
 now=$(date +"%y%m%d%H%M")
 log_file="/root/besttrace${now}.txt"
 
-echo -e "${Green_font}
+echo "
 #======================================
 # Project: AutoBesttrace
 # Version: 1.0
@@ -53,7 +53,7 @@ echo -e "${Green_font}
 # Blog:   https://cnboy.org
 # Github: https://github.com/honorcnboy
 #======================================
-${Font_suffix}"
+"
 
 for i in {0..14}
 do
