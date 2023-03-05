@@ -1,17 +1,5 @@
 #!/bin/bash
 
-echo -e "\033[32m"
-cat << "EOF"
-#======================================
-# Project: testrace
-# Version: 1.2
-# Author: nanqinlang
-# Blog:   https://sometimesnaive.org
-# Github: https://github.com/nanqinlang
-#======================================
-EOF
-echo -e "\033[0m"
-
 # install unzip
 
 if ! command -v unzip &> /dev/null
@@ -51,7 +39,15 @@ clear
 
 # Add the following line to output the header in green color
 
-echo -e "\033[32m#======================================\n# Project: testrace\n# Version: 1.2\n# Author: nanqinlang\n# Blog:   https://sometimesnaive.org\n# Github: https://github.com/nanqinlang\n#======================================\033[0m"
+echo -e "
+#======================================
+# Project: AutoBesttrace
+# Version: 1.0
+# Author: CNBoy
+# Blog:   https://cnboy.org
+# Github: https://github.com/honorcnboy
+#======================================
+"
 
 next
 
