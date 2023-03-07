@@ -47,7 +47,7 @@ do
     echo "|-开始上传: ${onedrive_dir}/${folder_name}/" | tee -a $log_file
     break
   else
-    echo "|-压缩失败!" | tee -a $log_file
+    echo "|-压缩失败..." | tee -a $log_file
     rm -f $backup_file
     if [ $i -eq $retry_times ]; then
       break
