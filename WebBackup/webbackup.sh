@@ -62,10 +62,10 @@ done
     rclone copy $backup_file $onedrive_dir/${folder_name}/
     if [ $? -eq 0 ]; then
       echo "|-上传完成: ${onedrive_dir}/${folder_name}/web_${folder_name}_${now}.tar.gz" | tee -a $log_file
-      echo "☆网站备份成功!" | tee -a $log_file
+      echo "★ 网站备份成功!" | tee -a $log_file
       break
     else
-      echo "|-上传结果: 失败" | tee -a $log_file
+      echo "|-上传失败..." | tee -a $log_file
       if [ $i -eq $retry_times ]; then
         break
       fi
@@ -81,4 +81,4 @@ do
 done
 
 # 结束备份
-echo "☆全部网站备份结束." | tee -a $log_file
+echo "☆★☆ 全部网站备份结束." | tee -a $log_file
