@@ -8,7 +8,7 @@
 - 如果不在本机中保存备份文件，直接在脚本中第65行“echo "☆网站备份成功!" | tee -a $log_file”后添加一行：rm -f $backup_file，即可
 
 
-运行命令：
+**运行命令**：
 ```bash
 wget -qO- https://raw.githubusercontent.com/honorcnboy/BlogDatas/main/WebBackup/webbackup.sh | bash 
 ```
