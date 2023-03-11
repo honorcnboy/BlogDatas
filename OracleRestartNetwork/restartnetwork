@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#解决甲骨文服务器DD linux系统后，sudo service networking restart 或 sudo /etc/init.d/networking restart 重启网卡命令失效，重启网卡会导致SSH失联的问题。
+
 # 获取网卡名
 INTERFACE_NAME=$(ip link | awk -F ': ' '$0 !~ "lo|vir|wl|^[^0-9]"{print $2}')
 
