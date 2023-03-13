@@ -20,3 +20,14 @@ wget -qO- https://raw.githubusercontent.com/honorcnboy/BlogDatas/main/VpsTest/au
 wget -qO- https://raw.githubusercontent.com/honorcnboy/BlogDatas/main/VpsTest/routetest.sh | bash 
 ```
 
+#### ReHostname - 修改系统主机名
+
+运行命令：
+```bash
+wget https://raw.githubusercontent.com/honorcnboy/BlogDatas/main/VpsTest/rehostname.sh && chmod +x rehostname.sh && ./rehostname.sh
+```
+
+Fix命令：
+```bash
+wget https://raw.githubusercontent.com/honorcnboy/BlogDatas/main/VpsTest/fixhostname.sh && chmod +x fixhostname.sh && ./fixhostname.sh
+```
