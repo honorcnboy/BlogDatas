@@ -57,8 +57,7 @@ next() {
 
 clear
 
-now=$(date +"%y%m%d%H%M")
-log_file="/root/besttrace${now}.txt"
+log_file="/root/besttracelog.txt"
 header="
 #==========================================
 # Project: AutoBesttrace
@@ -92,7 +91,7 @@ total_time=$((end_time - start_time))
 minutes=$((total_time / 60))
 seconds=$((total_time % 60))
 
-printf "脚本运行时间：%d分钟%d秒\n" "$minutes" "$seconds" | tee -a $log_file
+printf "脚本运行时间：%d分%d秒\n" "$minutes" "$seconds" | tee -a $log_file
 
 echo -e "\n检测结果已保存至 ${log_file}，请自行查看"
 
