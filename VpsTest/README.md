@@ -31,3 +31,12 @@ Fix命令：
 ```bash
 wget https://raw.githubusercontent.com/honorcnboy/BlogDatas/main/VpsTest/fixhostname.sh && chmod +x fixhostname.sh && ./fixhostname.sh
 ```
+
+#### RestartNetwork - 解决重启网卡失效
+
+适用于 AMD / ARM 架构 debian 系统。甲骨文等主机商服务器DD后 sudo service networking restart 或 sudo /etc/init.d/networking restart 重启网卡命令失效，重启网卡会导致SSH失联的问题。
+
+运行命令：
+```bash
+wget https://raw.githubusercontent.com/honorcnboy/BlogDatas/main/VpsTest/restartnetwork.sh && chmod +x restartnetwork.sh && bash restartnetwork.sh
+```
