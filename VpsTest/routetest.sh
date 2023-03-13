@@ -34,8 +34,7 @@ clear
 
 ## start test route
 
-now=$(date +"%y%m%d%H%M")
-log_file="/root/routetest${now}.txt"
+log_file="/root/routetestlog.txt"
 header="
 #==========================================
 # Project: Routetest
@@ -107,7 +106,7 @@ end_time=$(date +%s)
 total_time=$((end_time - start_time))
 minutes=$((total_time / 60))
 seconds=$((total_time % 60))
-printf "脚本运行时间：%d分钟%d秒\n" "$minutes" "$seconds" | tee -a $log_file
+printf "脚本运行时间：%d分%d秒\n" "$minutes" "$seconds" | tee -a $log_file
 
 echo -e "-------------------------------------------------------\n本脚本测试结果为TCP回程路由, 仅供参考.\n" | tee -a $log_file
 echo "检测结果已保存至 ${log_file}，请自行查看"
