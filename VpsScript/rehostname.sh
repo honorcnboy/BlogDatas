@@ -18,7 +18,7 @@ while true; do
         echo "$new_hostname" | sudo tee /etc/hostname > /dev/null
         hostnamectl set-hostname $new_hostname
 
-        echo "已将主机名修改为 $new_hostname"
+        echo "已将主机名修改为: $new_hostname"
         break
     fi
 done
@@ -34,11 +34,11 @@ fi
 
 # 检查 "/etc/hosts" 文件中是否存在 "127.0.0.1 ${New_Hostname}" 这一行内容
 if grep -q "127.0.0.1 ${New_Hostname}" /etc/hosts; then
-    echo "hosts文件中已存在 127.0.0.1 ${New_Hostname}"
+    echo "hosts文件中已存在: 127.0.0.1 ${New_Hostname}"
 else
     echo "127.0.0.1 ${New_Hostname}" | sudo tee -a /etc/hosts > /dev/null
-    echo "已将 127.0.0.1 ${New_Hostname} 添加进hosts文件"
+    echo "hosts文件中已加入: 127.0.0.1 ${New_Hostname}"
 fi
 
 echo ""
-echo "hosts文件位置：/etc/hosts，请自行检查."
+echo "hosts文件位于: /etc/hosts ，请自行检查."
