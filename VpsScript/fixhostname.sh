@@ -10,3 +10,4 @@ else
     echo "127.0.0.1 ${Hostname}" | sudo tee -a /etc/hosts > /dev/null
     echo "已添加：127.0.0.1 ${Hostname}"
 fi
+rm -f /fixhostname.sh
