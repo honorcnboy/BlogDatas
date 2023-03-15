@@ -40,4 +40,4 @@ else
     echo "已将 127.0.0.1 ${New_Hostname} 添加进hosts文件"
 fi
 
-echo "hosts文件位置：/etc/hosts，请自行检查."
+echo "\nhosts文件位置：/etc/hosts，请自行检查."
