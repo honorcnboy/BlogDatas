@@ -29,7 +29,7 @@ New_Hostname=$(hostname)
 # 检查 "/etc/hosts" 文件中是否存在 "127.0.0.1 ${Old_Hostname}" 这一行内容并将其删除
 if grep -q "127.0.0.1 ${Old_Hostname}" /etc/hosts; then
   sudo sed -i "/127.0.0.1 ${Old_Hostname}/d" /etc/hosts
-  echo "已删除 127.0.0.1 ${Old_Hostname}"
+  echo "已将 127.0.0.1 ${Old_Hostname} 从hosts文件中删除"
 fi
 
 # 检查 "/etc/hosts" 文件中是否存在 "127.0.0.1 ${New_Hostname}" 这一行内容
