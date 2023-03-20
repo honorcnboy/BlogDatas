@@ -1,84 +1,158 @@
 #!/bin/bash
 
-# 定义需备份网站文件夹完整路径,根据实际自行增加、减少
-folders=(
-  "/www/wwwroot/abc.com"
-  "/www/wwwroot/xyz.com"
-  "/opt/abc"
-  "/opt/xyz"
-)
+# 定义网站/数据库压缩文件存储目录
+site_dir="/www/backup/site"
+db_dir="/www/backup/database"
 
-# 定义压缩文件存储目录,根据实际自行设置
-backup_dir="/www/backup/site"
+# 定义网盘备份上传的网站/数据库目录
+netdrive_site_dir="GloryCN_OD:HonorBT/site"
+netdrive_db_dir="GloryCN_OD:HonorBT/database"
 
-# 定义Onedrive网盘备份上传目录,OD为你的网盘名,Backup为网盘内的目录
-onedrive_dir="OD:Backup"
-
-# 定义压缩及上传重试次数
-retry_times=5
-
-# 定义日志文件路径,根据实际自行设置
-log_file="/root/webbackup.txt"
+# 获取当前系统日期
+now_date=$(date +"%Y%m%d")
 
 # 定义日志文件中分隔符
 next() {
     printf "%-70s\n" "=" | sed 's/\s/=/g'
 }
 
-# 获取当前时间
-now=$(date +"%Y%m%d_%H%M%S")
+# 获取当前系统日期及时间
+now_time=$(date +"%Y-%m-%d-%H:%M:%S")
 
-# 定义函数：备份压缩并上传
-backup_compress_upload() {
-  folder_path="$1"
-  folder_name=$(basename $folder_path)
-  backup_file="$backup_dir/web_${folder_name}_${now}.tar.gz"
-  start_time=$(date +"%Y-%m-%d-%H:%M:%S")
-  echo $(next) | tee -a $log_file
-  echo "开始备份网站: ${folder_name} [${start_time}]" | tee -a $log_file
-  echo "|-开始压缩: ${folder_path}" | tee -a $log_file
+# 统计符合要求的网站备份压缩文件总数
+total_site_files=$(ls ${site_dir}/web_*.tar.gz | grep -c "${now_date}")
 
-# 压缩文件夹
-for (( i=1; i<=$retry_times; i++ ))
-do
-   tar -zcf $backup_file -P $folder_path
-  if [ $? -eq 0 ]; then
-    echo "|-压缩完成: ${backup_file}" | tee -a $log_file
-    echo "|-开始上传: ${onedrive_dir}/${folder_name}/" | tee -a $log_file
-    break
-  else
-    echo "|-压缩失败..." | tee -a $log_file
-    rm -f $backup_file
-    if [ $i -eq $retry_times ]; then
-      break
+echo "★开始上传网站备份文件 [${now_time}]"
+echo "-- 待上传文件 ${total_site_files} 个："
+next
+
+# 遍历${site_dir}下所有的压缩包文件
+for file in ${site_dir}/web_*.tar.gz; do
+    # 获取文件名中的日期部分
+    file_date=$(echo ${file} | grep -oE "[0-9]{8}")
+
+    # 判断文件名中的日期部分是否与当前系统日期相同
+    if [ "${file_date}" = "${now_date}" ]; then
+        # 解析site_url部分
+        site_url=$(echo ${file} | grep -oE "web_[^_]+_[0-9]{8}_[0-9]{6}" | cut -d "_" -f 2)
+
+        # 初始化尝试次数
+        try_times=0
+
+        # 尝试上传文件，最多重试5次
+        while [ ${try_times} -lt 5 ]; do
+            # 更新尝试次数
+            try_times=$((try_times+1))
+
+            # 组装上传文件名
+            upload_file="web_${site_url}_${file_date}_$(date +"%H%M%S").tar.gz"
+
+            # 尝试上传文件
+            rclone copy "${file}" "${netdrive_site_dir}/${site_url}/"
+
+            # 判断上传是否成功
+            if [ $? -eq 0 ]; then
+                echo "${upload_file} 上传成功，网盘路径：${netdrive_site_dir}/${site_url}/${upload_file}"
+                break
+            else
+                echo "第 ${try_times} 次重试上传 ${file} 到 ${netdrive_site_dir}/${site_url}/${upload_file}"
+            fi
+        done
+
+        # 判断是否上传成功
+        if [ ${try_times} -eq 5 ]; then
+            echo "web_${site_url}_${file_date}.tar.gz 上传失败，已重试5次，放弃上传。"
+            failed_files+=("${file}")
+        else
+            success_files+=("${file}")
+        fi
     fi
-    sleep 10s
-  fi
 done
 
-# 上传文件至Onedrive网盘
-  for (( i=1; i<=$retry_times; i++ ))
-  do
-    rclone copy $backup_file $onedrive_dir/${folder_name}/
-    if [ $? -eq 0 ]; then
-      echo "|-上传完成: ${onedrive_dir}/${folder_name}/web_${folder_name}_${now}.tar.gz" | tee -a $log_file
-      echo "★ 网站备份成功!" | tee -a $log_file
-      break
-    else
-      echo "|-上传失败..." | tee -a $log_file
-      if [ $i -eq $retry_times ]; then
-        break
-      fi
-    fi
-  done
-  echo "" | tee -a $log_file
-}
+# 统计上传结果
+success_num=${#success_files[@]}
+success_files_str=$(echo "${success_files[*]}" | sed 's/ /, /g')
+failed_num=${#failed_files[@]}
+failed_files_str=$(echo "${failed_files[*]}" | sed 's/ /, /g')
 
-# 开始备份
-for folder_path in "${folders[@]}"
-do
-  backup_compress_upload $folder_path
+next
+
+# 输出上传结果
+echo "☆网站备份文件上传完成！"
+echo ""
+
+next
+
+# 统计符合要求的文件总数
+total_db_files=$(ls ${db_dir}/db_*.sql.gz | grep -c "${now_date}")
+
+echo "★开始上传数据库备份文件 [${now_time}]"
+echo "-- 待上传文件 ${total_db_files} 个:"
+next
+
+# 遍历${db_dir}下所有的压缩包文件
+for file in ${db_dir}/db_*.sql.gz; do
+    # 获取文件名中的日期部分
+    file_date=$(echo ${file} | grep -oE "[0-9]{8}")
+
+    # 判断文件名中的日期部分是否与当前系统日期相同
+    if [ "${file_date}" = "${now_date}" ]; then
+        # 解析db_url部分
+        filename=$(basename "${file}")
+        db_url=$(echo "${filename#db_}" | sed -E 's/_[0-9]{8}_.*//;s/_$//')
+
+        # 初始化尝试次数
+        try_times=0
+
+        # 尝试上传文件，最多重试5次
+        while [ ${try_times} -lt 5 ]; do
+            # 更新尝试次数
+            try_times=$((try_times+1))
+
+            # 组装上传文件名
+            upload_file="db_${db_url}_${file_date}_$(date +"%H%M%S").sql.gz"
+
+            # 尝试上传文件
+            rclone copy "${file}" "${netdrive_db_dir}/${db_url}"
+
+            # 判断上传是否成功
+            if [ $? -eq 0 ]; then
+                echo "${upload_file} 上传成功，网盘路径：${netdrive_db_dir}/${db_url}/${upload_file}"
+                break
+            else
+                echo "第 ${try_times} 次重试上传 ${file} 到 ${netdrive_db_dir}/${db_url}/${upload_file}"
+            fi
+        done
+
+        # 判断是否上传成功
+        if [ ${try_times} -eq 5 ]; then
+            echo "db_${db_url}_${file_date}.sql.gz 上传失败，已重试5次，放弃上传。"
+            failed_files+=("${file}")
+        else
+            success_files+=("${file}")
+        fi
+    fi
 done
 
-# 结束备份
-echo "☆★☆ 全部网站备份结束." | tee -a $log_file
+# 统计上传结果
+success_num=${#success_files[@]}
+success_files_str=$(echo "${success_files[*]}" | sed 's/ /, /g')
+failed_num=${#failed_files[@]}
+failed_files_str=$(echo "${failed_files[*]}" | sed 's/ /, /g')
+
+next
+
+# 输出上传结果
+echo "☆数据库备份文件上传完成！"
+echo ""
+next
+echo "★网站 / 数据库备份文件上传完成！"
+echo "-上传成功 ${success_num} 个文件，文件名[本地完整路径]："
+for success_file in "${success_files[@]}"; do
+  echo " ${success_file}"
+done
+echo "-上传失败 ${failed_num} 个文件，文件名[本地完整路径]："
+for failed_file in "${failed_files[@]}"; do
+  echo " ${failed_file}"
+done
+echo "***请检查上传失败文件，并手动上传."
