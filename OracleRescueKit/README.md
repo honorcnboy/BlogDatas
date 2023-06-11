@@ -1,14 +1,14 @@
 ## Oracle Rescue Kit
       
-### ubuntu 18.04 AMD
+### ubuntu 20.04 AMD
 
-- 官方原版 Canonical-Ubuntu-18.04-2022.10.27-0 + BBRPlus-6.1.11
+- 基于官方原版 Canonical-Ubuntu-20.04-2023.05.18-0 打包（2023.06月更新，以新加坡区域7J13 Ubuntu-20.04 为基础，未做任何修改）
 
 - 用户名：root
 
 - 密码：CNBoy.org
 
-https://github.com/honorcnboy/BlogDatas/releases/download/OracleRescueKit/ubuntu18.04.amd.img.gz
+https://github.com/honorcnboy/BlogDatas/releases/download/OracleRescueKit/ubuntu20.04.amd.img.gz
       
 ### ubuntu 18.04 ARM
 
