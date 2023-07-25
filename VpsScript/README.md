@@ -41,7 +41,7 @@ wget https://raw.githubusercontent.com/honorcnboy/BlogDatas/main/VpsScript/fixho
 wget https://raw.githubusercontent.com/honorcnboy/BlogDatas/main/VpsScript/restartnetwork.sh && chmod +x restartnetwork.sh && bash restartnetwork.sh
 ```
 
-#### FireWallSetup - 防火墙安装及一键设置
+#### FireWallSetup - UFW安装及一键设置
 
 运行命令：
 ```bash
