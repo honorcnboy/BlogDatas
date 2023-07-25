@@ -40,3 +40,10 @@ wget https://raw.githubusercontent.com/honorcnboy/BlogDatas/main/VpsScript/fixho
 ```bash
 wget https://raw.githubusercontent.com/honorcnboy/BlogDatas/main/VpsScript/restartnetwork.sh && chmod +x restartnetwork.sh && bash restartnetwork.sh
 ```
+
+#### FireWallSetup - 防火墙安装及一键设置
+
+运行命令：
+```bash
+wget https://github.com/honorcnboy/BlogDatas/edit/main/VpsScript/firewall_setup.sh && chmod +x firewall_setup.sh && ./firewall_setup.sh
+```
