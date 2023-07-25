@@ -68,13 +68,13 @@ if [ -n "$firewall_installed" ]; then
 fi
 
 # Step 2: Choose a firewall to install
-if [ -z "$firewall_installed" ] || [ $? -eq 1 ]; then
+if [ -z "$firewall_installed" ] || [ "$firewall_installed" == "iptables" ]; then
     echo "选择要安装的防火墙："
     echo "1. iptables"
     echo "2. ufw"
     echo "3. firewalld"
-    prompt_integer "请输入相应的数字 (1/2/3)：" 
-    case $? in
+    firewall_choice=$(prompt_integer "请输入相应的数字 (1/2/3)：")
+    case $firewall_choice in
         1)
             firewall_to_install="iptables"
             ;;
