@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 常见端口列表（可自行修改）
-COMMON_PORTS="22 21 80 443 25 53 110 143 49101 5789"
+COMMON_PORTS="22 21 80 443 25 53 110 143"
 
 check_ufw_installed() {
   if command -v /usr/sbin/ufw &>/dev/null; then
