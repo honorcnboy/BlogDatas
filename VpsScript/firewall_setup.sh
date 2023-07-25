@@ -5,10 +5,10 @@ prompt_yn() {
     read -p "$1 (Y/N): " response
     case "$response" in
         [yY])
-            return 0
+            echo "Y"
             ;;
         [nN])
-            return 1
+            echo "N"
             ;;
         *)
             echo "无效的输入，请输入 Y 或 N。"
@@ -43,9 +43,8 @@ fi
 
 if [ -n "$firewall_installed" ]; then
     echo "已安装防火墙 ($firewall_installed)。"
-    prompt_yn "是否继续使用当前防火墙？" && {
-        echo "保持当前防火墙 ($firewall_installed)。"
-    } || {
+    response=$(prompt_yn "是否继续使用当前防火墙？")
+    if [ "$response" == "N" ]; then
         echo "正在移除当前防火墙 ($firewall_installed)..."
         case $firewall_installed in
             "iptables")
@@ -64,7 +63,9 @@ if [ -n "$firewall_installed" ]; then
                 systemctl disable firewalld
                 ;;
         esac
-    }
+    else
+        echo "保持当前防火墙 ($firewall_installed)。"
+    fi
 fi
 
 # Step 2: Choose a firewall to install
