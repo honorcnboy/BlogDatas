@@ -45,5 +45,5 @@ wget https://raw.githubusercontent.com/honorcnboy/BlogDatas/main/VpsScript/resta
 
 运行命令：
 ```bash
-wget https://github.com/honorcnboy/BlogDatas/edit/main/VpsScript/firewall_setup.sh && chmod +x firewall_setup.sh && ./firewall_setup.sh
+wget https://raw.githubusercontent.com/honorcnboy/BlogDatas/main/VpsScript/firewall_setup.sh && chmod +x firewall_setup.sh && ./firewall_setup.sh
 ```
