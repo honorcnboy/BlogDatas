@@ -76,3 +76,24 @@ main() {
 }
 
 main
+
+
+
+#查询当前系统使用的端口（不是查询防火墙开放端口）
+#ss -tuln
+
+#禁用 UFW
+#sudo ufw disable   
+
+#启用 UFW
+#sudo ufw enable    
+
+#查询 UFW 状态：
+#sudo ufw status
+
+#添加端口（比如添加端口号为 80 的TCP端口）
+#sudo ufw allow 80/tcp
+
+#删除端口（比如删除端口号为 80 的规则）
+#sudo ufw delete allow 80/tcp
+
