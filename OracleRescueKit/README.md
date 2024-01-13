@@ -1,6 +1,6 @@
 ## Oracle Rescue Kit
       
-### ubuntu 20.04 AMD
+### Ubuntu 20.04 AMD
 
 - 基于官方原版 Canonical-Ubuntu-20.04 打包
 
