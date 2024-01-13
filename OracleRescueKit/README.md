@@ -12,6 +12,7 @@
 
 - 恢复包链接：https://github.com/honorcnboy/BlogDatas/releases/download/OracleRescueKit/ubuntu20.04.amd.img.gz
 
+- 私钥链接：https://github.com/honorcnboy/BlogDatas/releases/download/OracleRescueKit/backup
 
       
 ### ubuntu 18.04 ARM
