@@ -10,7 +10,9 @@
 
 - 秘钥登录：将秘钥文件 backup 导入本地SSH登录工具，无密码登录（请勿使用backup.pub，这是服务器上存储的公钥）
 
-https://github.com/honorcnboy/BlogDatas/releases/download/OracleRescueKit/ubuntu20.04.amd.img.gz
+- 恢复包链接：https://github.com/honorcnboy/BlogDatas/releases/download/OracleRescueKit/ubuntu20.04.amd.img.gz
+
+
       
 ### ubuntu 18.04 ARM
 
