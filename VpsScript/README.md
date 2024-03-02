@@ -47,3 +47,15 @@ wget https://raw.githubusercontent.com/honorcnboy/BlogDatas/main/VpsScript/resta
 ```bash
 wget https://raw.githubusercontent.com/honorcnboy/BlogDatas/main/VpsScript/firewall_setup.sh && chmod +x firewall_setup.sh && ./firewall_setup.sh
 ```
+
+#### Debian_system_network_optimization - Debian系统网络一键优化
+
+运行命令1：
+```bash
+wget https://raw.githubusercontent.com/honorcnboy/BlogDatas/main/VpsScript/Debian_system_network_optimization.sh && chmod +x Debian_system_network_optimization.sh && ./Debian_system_network_optimization.sh
+```
+
+运行命令2（此优化针对的是多并发）：
+```bash
+wget https://raw.githubusercontent.com/honorcnboy/BlogDatas/main/VpsScript/Debian_system_network_optimization_2.sh && chmod +x Debian_system_network_optimization_2.sh && ./Debian_system_network_optimization_2.sh
+```
