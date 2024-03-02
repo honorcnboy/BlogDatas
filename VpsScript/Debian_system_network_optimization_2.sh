@@ -101,4 +101,4 @@ sysctl -w net.ipv4.tcp_adv_win_scale=-2
 sysctl -w net.core.rmem_max=134217728
 sysctl -w net.ipv4.tcp_rmem="8192 262144 134217728"
 sysctl -w net.core.wmem_max=33554432
-sysctl -w net.ipv4.tcp_wmem="8192 
+sysctl -w net.ipv4.tcp_wmem="8192
