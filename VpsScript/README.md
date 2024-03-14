@@ -48,6 +48,13 @@ wget https://raw.githubusercontent.com/honorcnboy/BlogDatas/main/VpsScript/resta
 wget https://raw.githubusercontent.com/honorcnboy/BlogDatas/main/VpsScript/firewall_setup.sh && chmod +x firewall_setup.sh && ./firewall_setup.sh
 ```
 
+#### setup_ssh - 设置秘钥登录
+
+运行命令：
+```bash
+wget https://raw.githubusercontent.com/honorcnboy/BlogDatas/main/VpsScript/setup_ssh.sh && bash setup_ssh.sh
+```
+
 #### Debian_system_network_optimization - Debian系统网络一键优化
 
 运行命令：
