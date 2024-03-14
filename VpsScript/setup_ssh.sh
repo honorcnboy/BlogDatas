@@ -24,3 +24,5 @@ echo "'/etc/ssh/sshd_config'文件修改成功."
 # 步骤 6：重启sshd服务
 service sshd restart
 echo "秘钥登录设置成功，并关闭密码登录.请验证无误后再关闭窗口."
+
+rm -- "$0"
