@@ -1,3 +1,10 @@
+#### XanMod内核配置及系统/网络等设置优化
+
+运行命令：
+```bash
+wget https://raw.githubusercontent.com/honorcnboy/BlogDatas/main/VpsScript/Optimization-v2.sh && chmod +x ./Optimization-v2.sh && sudo bash ./Optimization-v2.sh
+```
+
 #### AutoBesttrace - 回程路由检测
 
 适用于 AMD / ARM 架构 ubuntu / debian / centos 系统的三网回程路由检测脚本
