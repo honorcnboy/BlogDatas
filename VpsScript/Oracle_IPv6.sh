@@ -3,7 +3,17 @@ Debian_IPv6() {
     dhclient -6 $iName # 临时开启IPv6
     echo $iName # 人工查看网卡是否正确
     cp /etc/network/interfaces /root
-    sed -i "$ a iface $iName inet6 dhcp" /etc/network/interfaces
+
+    # 查找 iface $iName 行的位置
+    iface_line=$(grep -n "^iface $iName " /etc/network/interfaces | cut -d: -f1)
+
+    # 如果找到现有的 iface 行，就在其之前插入 auto 行
+    if [ -n "$iface_line" ]; then
+        sed -i "${iface_line}i auto $iName" /etc/network/interfaces
+    else
+        # 如果没有找到，就添加 auto 和 iface 行到文件末尾
+        echo -e "auto $iName\niface $iName inet6 dhcp" >> /etc/network/interfaces
+    fi
 
     # 重启网络服务
     ifdown $iName && ifup $iName
