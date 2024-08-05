@@ -2,7 +2,7 @@
 
 运行命令：
 ```bash
-wget https://raw.githubusercontent.com/honorcnboy/BlogDatas/main/VpsScript/Oracle_IPv6.sh && chmod +x ./Oracle_IPv6.sh && sudo bash ./Oracle_IPv6.sh
+wget https://raw.githubusercontent.com/honorcnboy/BlogDatas/main/VpsScript/Oracle_IPv6.sh && chmod +x ./Oracle_IPv6.sh && sudo bash ./Oracle_IPv6.sh && rm -rf ./Oracle_IPv6.sh
 ```
 
 #### XanMod内核配置及系统/网络等设置优化
