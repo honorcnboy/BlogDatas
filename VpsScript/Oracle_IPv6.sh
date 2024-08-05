@@ -5,16 +5,14 @@ Debian_IPv6() {
     cp /etc/network/interfaces /root
 
     # 查找 iface $iName 行的位置
-    iface_line=$(grep -n "^iface $iName " /etc/network/interfaces | cut -d: -f1)
+    auto_line=$(grep -n "^auto $iName" /etc/network/interfaces | cut -d: -f1)
 
-    if [ -n "$iface_line" ]; then
-        # 在 iface 行之前插入 auto 行
-        sed -i "${iface_line}i auto $iName" /etc/network/interfaces
-        # 在文件末尾添加 IPv6 配置
-        echo "iface $iName inet6 dhcp" >> /etc/network/interfaces
+    if [ -n "$auto_line" ]; then
+        # 如果找到 auto $iName 行，添加 iface 和 accept_ra 配置
+        echo -e "\niface $iName inet6 dhcp\n    accept_ra 2" >> /etc/network/interfaces
     else
-        # 如果没有找到，就添加 auto 和 iface 行到文件末尾
-        echo -e "auto $iName\niface $iName inet6 dhcp" >> /etc/network/interfaces
+        # 如果没有找到 auto $iName 行，添加 auto, iface 和 accept_ra 配置
+        echo -e "auto $iName\niface $iName inet6 dhcp\n    accept_ra 2" >> /etc/network/interfaces
     fi
 
     # 重启网络服务
