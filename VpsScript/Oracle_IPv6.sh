@@ -4,15 +4,20 @@ Debian_IPv6() {
     echo $iName # 人工查看网卡是否正确
     cp /etc/network/interfaces /root
 
-    # 查找 iface $iName 行的位置
-    auto_line=$(grep -n "^auto $iName" /etc/network/interfaces | cut -d: -f1)
+    # 查找并添加 auto $iName 、iface $iName inet6 dhcp 、accept_ra 2
+    if ! grep -q "^auto $iName" /etc/network/interfaces; then
+        iName_line=$(grep -n "^iface $iName" /etc/network/interfaces | cut -d: -f1)
+        if [ -n "$iName_line" ]; then
+            sed -i "${iName_line}i auto $iName" /etc/network/interfaces
+        else
+            echo -e "auto $iName" >> /etc/network/interfaces
+        fi
+    fi
 
-    if [ -n "$auto_line" ]; then
-        # 如果找到 auto $iName 行，添加 iface 和 accept_ra 配置
-        echo -e "\niface $iName inet6 dhcp\n    accept_ra 2" >> /etc/network/interfaces
+    if grep -q "^iface $iName inet6 dhcp" /etc/network/interfaces; then
+        sed -i "/^iface $iName inet6 dhcp/a\    accept_ra 2" /etc/network/interfaces
     else
-        # 如果没有找到 auto $iName 行，添加 auto, iface 和 accept_ra 配置
-        echo -e "auto $iName\niface $iName inet6 dhcp\n    accept_ra 2" >> /etc/network/interfaces
+        echo -e "\niface $iName inet6 dhcp\n    accept_ra 2" >> /etc/network/interfaces
     fi
 
     # 重启网络服务
