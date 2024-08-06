@@ -26,7 +26,7 @@ Debian_IPv6() {
     # 验证IPv6配置是否生效
     sleep 2s
     echo "如果PING失败，请尝试: sudo service networking restart && sudo dhclient -6 -r $iName && sudo dhclient -6 $iName && ip a ,查看IPv6是否获取正常，如有多条则释放旧地址: sudo ip -6 addr del <格式:0000:0000.../123> dev $iName
- ,再次尝试PING."
+ 后再次尝试PING. 如仍有问题, 请自行Google或GPT."
     ping -c 4 ipv6.google.com
 }
 
