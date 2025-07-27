@@ -27,13 +27,22 @@ get_latest_version() {
 }
 
 detect_existing_xray() {
-    # 自动检测 xray 可执行文件名
     f=$(find "$BIN_DIR" -maxdepth 1 -type f -name "xray*" | head -n 1)
     if [[ -z "$f" ]]; then
         log "❌ 未在 $BIN_DIR 找到现有 xray 文件，请手动确认"
         exit 1
     fi
     echo "$f"
+}
+
+rollback() {
+    if [[ -f "$XRAY_BACKUP" ]]; then
+        log "⚠️ 回滚：恢复旧版本..."
+        mv -f "$XRAY_BACKUP" "$XRAY_BIN"
+        chmod +x "$XRAY_BIN"
+        systemctl restart x-ui
+        log "✅ 已恢复并重启 x-ui"
+    fi
 }
 
 update_xray() {
@@ -77,23 +86,29 @@ update_xray() {
     fi
 
     XRAY_BIN=$(detect_existing_xray)
+    XRAY_BACKUP="${XRAY_BIN}.bak_$(date '+%Y%m%d%H%M%S')"
     log "📍 检测到现有 xray 路径: $XRAY_BIN"
 
     log "🧰 备份旧版本..."
-    cp "$XRAY_BIN" "${XRAY_BIN}.bak_$(date '+%Y%m%d%H%M%S')"
+    cp "$XRAY_BIN" "$XRAY_BACKUP"
 
     log "🛑 停止 x-ui 服务..."
     systemctl stop x-ui || true
 
-    log "🚀 替换新版本..."
+    log "🚀 替换为新版本..."
     chmod +x xray
     mv -f xray "$XRAY_BIN"
 
     log "✅ 启动 x-ui 服务..."
-    systemctl start x-ui || true
-
-    log "🎉 更新完成！已替换为版本: $latest_ver"
+    if systemctl start x-ui; then
+        log "🎉 更新完成，清理旧备份: $XRAY_BACKUP"
+        rm -f "$XRAY_BACKUP"
+    else
+        log "❌ 启动失败，尝试回滚..."
+        rollback
+    fi
 }
 
-# 执行主函数
+trap rollback ERR  # 任何错误触发回滚
+
 update_xray
