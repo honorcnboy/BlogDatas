@@ -15,7 +15,7 @@ log() {
 
 # 配置
 BIN_DIR="/usr/local/x-ui/bin"
-XRAY_BIN="$BIN_DIR/"
+XRAY_BIN="/usr/local/x-ui/bin"
 ARCH=$(uname -m)
 TMP_DIR="/tmp/xray_update"
 RETRY_COUNT=3
