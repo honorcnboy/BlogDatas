@@ -1,3 +1,10 @@
+#### 一键更新3X-UI中Xray
+
+运行命令：
+```bash
+bash <(curl -Ls https://raw.githubusercontent.com/honorcnboy/BlogDatas/main/VpsScript/update-xray.sh)
+```
+
 #### Oracle 开启IPv6
 
 运行命令：
