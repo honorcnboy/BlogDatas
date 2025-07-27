@@ -22,10 +22,11 @@ if ! command -v jq &>/dev/null; then
     fi
 fi
 
-# 检测 xray 路径
-XRAY_PATH=$(ps -ef | grep -v grep | grep -oP '/usr/.*/x-ui/bin/xray[^ ]*' | head -n1)
-if [[ -z "$XRAY_PATH" ]]; then
-    log "❌ 未检测到正在运行的 xray 进程，请确认是否已安装 x-ui"
+# 只适用于使用 x-ui 的情况
+XRAY_PATH=$(find /usr/local/x-ui/bin/ -maxdepth 1 -type f -name "xray*" | grep -Ev '\.bak|\.old' | head -n1)
+
+if [[ -z "$XRAY_PATH" || ! -f "$XRAY_PATH" ]]; then
+    log "❌ 未找到 /usr/local/x-ui/bin/ 中的 xray 可执行文件，请确认是否安装了 x-ui"
     exit 1
 fi
 
