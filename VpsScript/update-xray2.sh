@@ -103,11 +103,15 @@ fi
 log "🔧 正在备份旧版本..."
 cp -f "$XRAY_PATH" "$BACKUP_PATH"
 
+log "🛑 停止 x-ui 服务..."
+systemctl stop x-ui || true
+    
 log "🚀 安装新版本..."
 chmod +x xray
 mv -f xray "$XRAY_PATH"
 
 # 验证更新
+systemctl start x-ui
 NEW_VERSION=$($XRAY_PATH -version 2>/dev/null | grep -oP 'Xray\s+\K[\d\.]+')
 if [[ "$NEW_VERSION" == "${selected_version#v}" ]]; then
     log "✅ 更新成功！当前版本: $NEW_VERSION"
