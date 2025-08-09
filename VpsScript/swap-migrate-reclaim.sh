@@ -49,18 +49,29 @@ if [ ! -f "$SWAPFILE" ]; then
     log "创建 swap 文件，大小：${SWAPSIZE_MB}MB"
     dd if=/dev/zero of="$SWAPFILE" bs=1M count=$SWAPSIZE_MB status=progress
     chmod 600 "$SWAPFILE"
+    log "确认 swap 文件权限及信息："
+    ls -lh "$SWAPFILE"
+    file "$SWAPFILE"
     mkswap "$SWAPFILE"
 else
     log "$SWAPFILE 已存在，跳过创建"
 fi
 
-# 检测 swap 文件是否已经启用，避免重复启用导致报错
+# 启用 swap 文件，带错误检查
 if ! swapon --show=NAME | grep -q "^$SWAPFILE$"; then
-    log "启用 swap 文件 $SWAPFILE"
-    swapon "$SWAPFILE"
+    log "尝试启用 swap 文件 $SWAPFILE"
+    if swapon "$SWAPFILE"; then
+        log "swap 文件 $SWAPFILE 启用成功"
+    else
+        log "警告：启用 swap 文件 $SWAPFILE 失败，请检查文件权限和格式"
+    fi
 else
     log "swap 文件 $SWAPFILE 已启用"
 fi
+
+# 为确保 fstab 中所有 swap 都生效，执行 swapon -a
+log "执行 swapon -a 确保 /etc/fstab 中所有 swap 设备都启用"
+swapon -a
 
 # 备份 fstab 并添加 swap 文件挂载
 if [ -f /etc/fstab ]; then
