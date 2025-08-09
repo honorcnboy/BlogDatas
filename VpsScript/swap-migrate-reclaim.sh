@@ -50,10 +50,17 @@ if [ ! -f "$SWAPFILE" ]; then
     dd if=/dev/zero of="$SWAPFILE" bs=1M count=$SWAPSIZE_MB status=progress
     chmod 600 "$SWAPFILE"
     mkswap "$SWAPFILE"
+else
+    log "$SWAPFILE 已存在，跳过创建"
 fi
 
-log "启用 swap 文件 $SWAPFILE"
-swapon "$SWAPFILE"
+# 检测 swap 文件是否已经启用，避免重复启用导致报错
+if ! swapon --show=NAME | grep -q "^$SWAPFILE$"; then
+    log "启用 swap 文件 $SWAPFILE"
+    swapon "$SWAPFILE"
+else
+    log "swap 文件 $SWAPFILE 已启用"
+fi
 
 # 备份 fstab 并添加 swap 文件挂载
 if [ -f /etc/fstab ]; then
@@ -72,6 +79,11 @@ CURRENT_SWAP_PART=$(swapon --noheadings --raw | awk '$1 ~ /^\/dev\// {print $1}'
 
 if [ -z "$CURRENT_SWAP_PART" ]; then
     log "没有检测到 swap 分区，迁移完成。"
+    # 打印最终状态
+    log "当前 swap 状态："
+    swapon --show
+    log "根分区使用情况："
+    df -h /
     exit 0
 fi
 
@@ -80,6 +92,11 @@ read -p "是否关闭并删除该 swap 分区并扩容根分区？(y/N): " CONFI
 
 if [[ "$CONFIRM" != "y" ]]; then
     log "用户选择保留 swap 分区，迁移结束。"
+    # 打印最终状态
+    log "当前 swap 状态："
+    swapon --show
+    log "根分区使用情况："
+    df -h /
     exit 0
 fi
 
@@ -128,6 +145,9 @@ fi
 log "删除分区 $PART_NUM (磁盘 /dev/$DISK)"
 parted /dev/$DISK --script rm $PART_NUM
 
+log "刷新内核分区表"
+partprobe /dev/$DISK || blockdev --rereadpt /dev/$DISK || true
+
 # 获取根分区设备及文件系统类型
 ROOT_PART=$(findmnt / -no SOURCE)
 FSTYPE=$(findmnt / -no FSTYPE /)
@@ -165,10 +185,18 @@ case "$FSTYPE" in
         ;;
 esac
 
-log "迁移并删除旧 swap 分区完成。"
+# 打印扩容后磁盘和文件系统实际容量
+log "扩容后根分区大小（块设备）："
+lsblk "/dev/$ROOT_DISK" -o NAME,SIZE,TYPE,MOUNTPOINT | grep "$ROOT_PART"
+log "扩容后根分区文件系统使用情况："
+df -h /
+
+# 打印当前 swap 状态和 swap 文件大小
 log "当前 swap 状态："
 swapon --show
-log "根分区使用情况："
-df -h /
+log "swap 文件大小信息："
+ls -lh "$SWAPFILE"
+
+log "迁移并删除旧 swap 分区完成。"
 log "备份 fstab 文件在：$BACKUP_FSTAB"
 log "如需回退，请恢复 fstab 并删除 swap 文件。"
