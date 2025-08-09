@@ -30,22 +30,24 @@ else
 fi
 log "物理内存: ${MEM_MB} MB，推荐 swap 大小: $RECOMMEND_SWAP"
 
-read -p "请输入 swap 大小（例如 2G 或 2048M，回车使用推荐 $RECOMMEND_SWAP）： " INPUT_SWAP
-SWAPSIZE=${INPUT_SWAP:-$RECOMMEND_SWAP}
+read -p "请输入 swap 大小（单位MB，纯数字，回车使用推荐值 $RECOMMEND_SWAP MB）： " INPUT_SWAP
 
-# 创建并启用 swap 文件
-if [ -f "$SWAPFILE" ]; then
-    log "$SWAPFILE 已存在，跳过创建"
+# 去除单位，只取数字部分
+INPUT_SWAP_NUM=$(echo "$INPUT_SWAP" | grep -oE '^[0-9]+$' || true)
+
+if [ -z "$INPUT_SWAP_NUM" ]; then
+    # 用户没输入或输入无效，使用推荐值
+    SWAPSIZE_MB=$(echo "$RECOMMEND_SWAP" | grep -oE '^[0-9]+')
 else
-    log "创建 swap 文件，大小：$SWAPSIZE"
-    if ! fallocate -l "$SWAPSIZE" "$SWAPFILE" 2>/dev/null; then
-        COUNT=$(( $(echo $SWAPSIZE | tr -d 'GgMm') ))
-        UNIT=$(echo $SWAPSIZE | grep -o '[GgMm]')
-        if [[ "$UNIT" =~ [Gg] ]]; then
-            COUNT=$(( COUNT * 1024 ))
-        fi
-        dd if=/dev/zero of="$SWAPFILE" bs=1M count="$COUNT" status=progress
-    fi
+    SWAPSIZE_MB=$INPUT_SWAP_NUM
+fi
+
+log "使用 swap 大小: ${SWAPSIZE_MB} MB"
+
+# 创建 swap 文件时，统一用 dd 创建，避免 fallocate 不支持
+if [ ! -f "$SWAPFILE" ]; then
+    log "创建 swap 文件，大小：${SWAPSIZE_MB}MB"
+    dd if=/dev/zero of="$SWAPFILE" bs=1M count=$SWAPSIZE_MB status=progress
     chmod 600 "$SWAPFILE"
     mkswap "$SWAPFILE"
 fi
