@@ -19,16 +19,16 @@ else
 fi
 log "操作系统: $PRETTY_NAME"
 
-# 推荐 swap 大小
+# 推荐 swap 大小（MB）
 MEM_MB=$(free -m | awk '/^Mem:/{print $2}')
 if [ "$MEM_MB" -le 2048 ]; then
-    RECOMMEND_SWAP="${MEM_MB}M"
+    RECOMMEND_SWAP=$((MEM_MB * 2))
 elif [ "$MEM_MB" -le 8192 ]; then
-    RECOMMEND_SWAP="${MEM_MB}M"
+    RECOMMEND_SWAP=$MEM_MB
 else
-    RECOMMEND_SWAP="8G"
+    RECOMMEND_SWAP=8192
 fi
-log "物理内存: ${MEM_MB} MB，推荐 swap 大小: $RECOMMEND_SWAP"
+log "物理内存: ${MEM_MB} MB，推荐 swap 大小: $RECOMMEND_SWAP MB"
 
 read -p "请输入 swap 大小（单位MB，纯数字，回车使用推荐值 $RECOMMEND_SWAP MB）： " INPUT_SWAP
 
